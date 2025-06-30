@@ -30,6 +30,11 @@ def handle_event(event: Event):
 
             return {"destination": {"id": event.destination, "balance": accounts[event.destination]}}
         case 'withdraw':
-            return Response(content="OK", media_type="text/plain", status_code=200)
+            if event.origin not in accounts:
+                return Response(content="0", media_type="text/plain", status_code=404)
+
+            accounts[event.origin] -= event.amount
+
+            return {"origin": {"id": event.origin, "balance": accounts[event.origin]}}
         case 'transfer':
             return Response(content="OK", media_type="text/plain", status_code=200)
