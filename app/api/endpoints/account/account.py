@@ -25,7 +25,10 @@ def get_balance(account_id: str):
 def handle_event(event: Event):
     match event.type:
         case 'deposit':
-            return Response(content="OK", media_type="text/plain", status_code=200)
+            current_balance = accounts.get(event.destination, 0)
+            accounts[event.destination] = current_balance + event.amount
+
+            return {"destination": {"id": event.destination, "balance": accounts[event.destination]}}
         case 'withdraw':
             return Response(content="OK", media_type="text/plain", status_code=200)
         case 'transfer':
