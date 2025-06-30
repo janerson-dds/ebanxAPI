@@ -9,7 +9,7 @@ class AccountService:
         self.accounts.clear()
 
     def get_balance(self, account_id: str):
-        return self.accounts.get(account_id, "0")
+        return str(self.accounts.get(account_id, "0"))
 
     def handle_event(self, event: Event):
         if event.origin not in self.accounts and event.type != 'deposit':

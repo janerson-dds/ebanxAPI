@@ -20,7 +20,7 @@ def reset():
 def balance(account_id: str):
     amount = service.get_balance(account_id)
 
-    if balance:
+    if amount != "0":
         return Response(content=amount, media_type="text/plain", status_code=200)
     else:
         return Response(content="0", media_type="text/plain", status_code=404)
